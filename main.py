@@ -3,6 +3,7 @@ from fastapi import FastAPI, Request
 import requests
 import os
 import time
+import uvicorn
 
 app = FastAPI()
 
@@ -10,7 +11,7 @@ app = FastAPI()
 token_cache = {
     "token": None,
     "fetched_at": 0,
-    "expires_in": 3600  # adjust as needed
+    "expires_in": 3600
 }
 
 def login_and_get_token():
@@ -69,3 +70,6 @@ async def get_object_status(request: Request):
         )
 
     return response.json()
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)
